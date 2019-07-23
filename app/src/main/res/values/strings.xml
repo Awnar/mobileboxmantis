@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">mobilebox-mantis</string>
+    <string name="app_name">MobileBox Mantis</string>
+    <string name="back"><![CDATA[<<]]></string>
+    <string name="next"><![CDATA[>>]]></string>
+    <string name="loading">Ładowanie...</string>
+    <string name="data_create">Utworzono: </string>
+    <string name="data_update">Aktualizowano: </string>
 </resources>

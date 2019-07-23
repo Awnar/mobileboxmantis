@@ -1,47 +1,58 @@
 package pl.mobilebox.mantis;
 
-import android.os.NetworkOnMainThreadException;
 import android.util.Log;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.*;
-import retrofit2.http.*;
-import java.util.List;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Query;
 
-public class API implements Callback<Issues> {
+import java.util.Observable;
 
-    public static final String API_URL = "https://mantis.mobilebox.pl/api/rest/";
-    private IssuesIF issues;
-    public Issues response;
+public class API extends Observable implements Callback<Issues> {
+
+    static final String API_URL = "https://mantis.mobilebox.pl/api/rest/";
+    private Retrofit retrofit;
 
     public interface IssuesIF {
-        @Headers("Authorization: ")
+        @Headers("Authorization: RaPYiXvCWag3LKQwfnbtbWzZ3MZH-LJB")
         @GET("issues")
         Call<Issues> IssuesIF(
                 @Query("page_size") String size,
-                @Query("page") String page);
+                @Query("page") String page
+        );
     }
 
-    public API() {
-        Retrofit retrofit = new Retrofit.Builder()
+    API() {
+        retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        issues = retrofit.create(IssuesIF.class);
     }
 
-    public void getIssues(int size, int page) {
+    void getIssues(int size, int page) {
+        IssuesIF issues = retrofit.create(IssuesIF.class);
         Call<Issues> call = issues.IssuesIF(Integer.toString(size), Integer.toString(page));
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<Issues> call, Response<Issues> res) {
+        setChanged();
         if (res.isSuccessful())
-            response = res.body();
+            notifyObservers(res.body());
+        else
+            notifyObservers(null);
     }
 
     @Override
     public void onFailure(Call<Issues> call, Throwable t) {
+        setChanged();
+        notifyObservers(null);
         Log.d("API", t.getMessage());
     }
 }
