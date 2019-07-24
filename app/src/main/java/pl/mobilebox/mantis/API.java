@@ -1,5 +1,6 @@
 package pl.mobilebox.mantis;
 
+import android.provider.Settings;
 import android.util.Log;
 
 import retrofit2.Call;
@@ -15,11 +16,13 @@ import java.util.Observable;
 
 public class API extends Observable implements Callback<Issues> {
 
+    static final private String API_KEY = "";
     static final private String API_URL = "https://mantis.mobilebox.pl/api/rest/";
     private Retrofit retrofit;
 
+
     public interface IssuesIF {
-        @Headers("Authorization: RaPYiXvCWag3LKQwfnbtbWzZ3MZH-LJB")
+        @Headers("Authorization: "+ API_KEY)
         @GET("issues")
         Call<Issues> IssuesIF(
                 @Query("page_size") String size,

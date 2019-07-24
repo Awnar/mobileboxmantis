@@ -23,7 +23,7 @@ class Issue /*implements Parcelable */{
 
     class Notes /*implements Parcelable*/{
         String text;
-        Reporter reporter;
+        Object1 reporter;
         String updated_at;
 //        @Override
 //        public int describeContents() {return 0;}
@@ -52,11 +52,7 @@ class Issue /*implements Parcelable */{
 //        }
     }
 
-    public class Reporter{
-        String name;
-    }
-
-    public class Project{
+    public class Object1{
         String name;
     }
 
@@ -64,8 +60,9 @@ class Issue /*implements Parcelable */{
     Priority priority;
     Status status;
     List<Notes> notes;
-    Reporter reporter;
-    Project project;
+    Object1 reporter;
+    Object1 project;
+    Object1 handler;
 
 //    @Override
 //    public int describeContents() {

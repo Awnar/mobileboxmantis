@@ -22,28 +22,36 @@ public class ItemActivity extends AppCompatActivity {
         //Issue value = intent.getParcelableExtra("data");
         Issue value = new Gson().fromJson(intent.getStringExtra("data"), Issue.class);
 
-        TextView textView = findViewById(R.id.summary);
+        LinearLayout listView = findViewById(R.id.scrollView);
+
+        View item = LayoutInflater.from(this).inflate(R.layout.item, null);
+        TextView textView = item.findViewById(R.id.summary);
         textView.setText(value.summary);
 
-        textView = findViewById(R.id.data);
+        textView = item.findViewById(R.id.data);
         textView.setText(value.created_at.replaceAll("T|(\\+.*)", " "));
 
-        textView = findViewById(R.id.description);
+        textView = item.findViewById(R.id.description);
         textView.setText(value.description);
 
-        View view = findViewById(R.id.view);
+        View view = item.findViewById(R.id.view);
         view.setBackgroundColor(Color.parseColor(value.status.color));
 
-        textView = findViewById(R.id.reporter);
+        textView = item.findViewById(R.id.reporter);
         textView.setText(value.reporter.name);
 
-        textView = findViewById(R.id.projekt);
+        textView = item.findViewById(R.id.projekt);
         textView.setText(value.project.name);
 
-        textView = findViewById(R.id.status);
+        textView = item.findViewById(R.id.status);
         textView.setText(value.status.label);
 
-        textView = findViewById(R.id.view2);
+        if(value.handler!=null) {
+            textView = item.findViewById(R.id.przypisane);
+            textView.setText(value.handler.name);
+        }
+
+        textView = item.findViewById(R.id.view2);
         textView.setText(value.priority.label);
         switch (value.priority.id) {
             case 20: {//low
@@ -70,8 +78,9 @@ public class ItemActivity extends AppCompatActivity {
             }
         }
 
+        listView.addView(item);
+
         if (value.notes != null) {
-            LinearLayout listView = findViewById(R.id.scrollView);
             for (Issue.Notes note : value.notes) {
                 View tmpview = LayoutInflater.from(this).inflate(R.layout.list_note, null);
                 ((TextView) tmpview.findViewById(R.id.reporter)).setText(note.reporter.name);
