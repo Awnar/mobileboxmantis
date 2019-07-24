@@ -15,7 +15,7 @@ import java.util.Observable;
 
 public class API extends Observable implements Callback<Issues> {
 
-    static final String API_URL = "https://mantis.mobilebox.pl/api/rest/";
+    static final private String API_URL = "https://mantis.mobilebox.pl/api/rest/";
     private Retrofit retrofit;
 
     public interface IssuesIF {

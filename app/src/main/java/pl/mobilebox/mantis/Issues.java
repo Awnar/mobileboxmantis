@@ -1,15 +1,9 @@
 package pl.mobilebox.mantis;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.Gson;
-
-import java.util.Collections;
 import java.util.List;
 
 public class Issues {
-    public final List<Issue> issues;
+    final List<Issue> issues;
 
     public Issues(List<Issue> issues) {
         this.issues = issues;
@@ -20,15 +14,14 @@ class Issue /*implements Parcelable */{
 
     public class Priority {
         int id;
-        String name, label;
+        String label;
     }
 
     public class Status {
-        int id;
-        String name, label, color;
+        String label, color;
     }
 
-    public class Notes /*implements Parcelable*/{
+    class Notes /*implements Parcelable*/{
         String text;
         Reporter reporter;
         String updated_at;
@@ -63,11 +56,16 @@ class Issue /*implements Parcelable */{
         String name;
     }
 
-    int id;
+    public class Project{
+        String name;
+    }
+
     String summary, description, created_at, updated_at;
     Priority priority;
     Status status;
     List<Notes> notes;
+    Reporter reporter;
+    Project project;
 
 //    @Override
 //    public int describeContents() {

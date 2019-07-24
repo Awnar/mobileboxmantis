@@ -34,40 +34,37 @@ public class ItemActivity extends AppCompatActivity {
         View view = findViewById(R.id.view);
         view.setBackgroundColor(Color.parseColor(value.status.color));
 
+        textView = findViewById(R.id.reporter);
+        textView.setText(value.reporter.name);
+
+        textView = findViewById(R.id.projekt);
+        textView.setText(value.project.name);
+
+        textView = findViewById(R.id.status);
+        textView.setText(value.status.label);
+
         textView = findViewById(R.id.view2);
+        textView.setText(value.priority.label);
         switch (value.priority.id) {
-            case 10: {//none
-                textView.setText("");
-                //textView.setTextColor(1);
-                break;
-            }
             case 20: {//low
-                textView.setText("1");
                 textView.setTextColor(Color.parseColor("#69AA46"));
                 break;
             }
             case 30: {//normal
-                textView.setText("2");
                 textView.setTextColor(Color.parseColor("#FEB902"));
                 break;
             }
             case 40: {//hight
-                textView.setText("3");
                 textView.setTextColor(Color.parseColor("#fe7c02"));
                 break;
             }
-            case 50: {//urgent
-                textView.setText("5");
-                textView.setTextColor(Color.parseColor("#DD5A43"));
-                break;
-            }
+            case 50://urgent
             case 60: {//immediate
-                textView.setText("6");
                 textView.setTextColor(Color.parseColor("#DD5A43"));
                 break;
             }
+            case 10: //none
             default: {
-                textView.setText("?");
                 textView.setTextColor(Color.parseColor("#000000"));
                 break;
             }
